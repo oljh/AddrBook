@@ -1,6 +1,7 @@
 package controllers;
 
 import interfaces.impls.CollectionAddressBook;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,7 @@ import objects.Person;
 import java.io.IOException;
 
 public class MainController {
-private CollectionAddressBook addressBookImpls = new CollectionAddressBook();
+private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
     @FXML
     private Button addButton;
 
@@ -50,18 +51,29 @@ private CollectionAddressBook addressBookImpls = new CollectionAddressBook();
     private void initialize(){
         columnFIO.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+        addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+                updateCountLable();
+            }
+        });
+        addressBookImpl.fillTestData();
 
-        addressBookImpls.fillTestData();
-
-        tableAddressBook.setItems(addressBookImpls.getPersonList());
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
 
 
     }
 
     public void updateCountLable(){
-        labelCount.setText("Количество записей " + addressBookImpls.getPersonList().size());
+        labelCount.setText("Количество записей " + addressBookImpl.getPersonList().size());
     }
     public void showDialog(ActionEvent actionEvent) {
+        Object source =actionEvent.getSource();
+        if(!(source instanceof  Button)){
+            return;
+        }
+
+
         try {
 
             Stage stage = new Stage();
