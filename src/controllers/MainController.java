@@ -67,12 +67,23 @@ private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
     public void updateCountLable(){
         labelCount.setText("Количество записей " + addressBookImpl.getPersonList().size());
     }
+
     public void showDialog(ActionEvent actionEvent) {
         Object source =actionEvent.getSource();
         if(!(source instanceof  Button)){
             return;
         }
+         Button clickedButton = (Button)source;
 
+        Person selectedPerson = (Person)tableAddressBook.getSelectionModel().getSelectedItem();
+        switch (clickedButton.getId()){
+            case "addButton":
+                System.out.println();
+                break;
+            case "delButton":
+                System.out.println();
+
+        }
 
         try {
 
