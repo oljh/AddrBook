@@ -17,7 +17,7 @@ import objects.Person;
 import java.io.IOException;
 
 public class MainController {
-private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
+    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
     @FXML
     private Button addButton;
 
@@ -46,9 +46,8 @@ private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
     private Label labelCount;
 
 
-
     @FXML
-    private void initialize(){
+    private void initialize() {
         columnFIO.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
         addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
@@ -64,24 +63,29 @@ private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     }
 
-    public void updateCountLable(){
+    public void updateCountLable() {
         labelCount.setText("Количество записей " + addressBookImpl.getPersonList().size());
     }
 
     public void showDialog(ActionEvent actionEvent) {
-        Object source =actionEvent.getSource();
-        if(!(source instanceof  Button)){
+        Object source = actionEvent.getSource();
+        if (!(source instanceof Button)) {
             return;
         }
-         Button clickedButton = (Button)source;
+        Button clickedButton = (Button) source;
 
-        Person selectedPerson = (Person)tableAddressBook.getSelectionModel().getSelectedItem();
-        switch (clickedButton.getId()){
+        Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
+        switch (clickedButton.getId()) {
             case "addButton":
-                System.out.println();
+                System.out.println("Add " + selectedPerson);
                 break;
             case "delButton":
-                System.out.println();
+                System.out.println("Del " + selectedPerson);
+                break;
+            case "searchButton":
+                System.out.println("Поиск " + selectedPerson);
+                break;
+
 
         }
 
