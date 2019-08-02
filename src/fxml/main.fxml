@@ -18,12 +18,12 @@
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="changeButton" mnemonicParsing="false" text="Изменить">
+            <Button fx:id="changeButton" mnemonicParsing="false" onAction="#showDialog" text="Изменить">
                <HBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="delButton" mnemonicParsing="false" text="Удалить">
+            <Button fx:id="delButton" mnemonicParsing="false" onAction="#showDialog" text="Удалить">
                <HBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </HBox.margin>

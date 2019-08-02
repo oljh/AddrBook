@@ -17,7 +17,9 @@ import objects.Person;
 import java.io.IOException;
 
 public class MainController {
+
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
+
     @FXML
     private Button addButton;
 
@@ -45,6 +47,9 @@ public class MainController {
     @FXML
     private Label labelCount;
 
+    private  Parent fxmlEdit;
+
+
 
     @FXML
     private void initialize() {
@@ -68,6 +73,7 @@ public class MainController {
     }
 
     public void showDialog(ActionEvent actionEvent) {
+
         Object source = actionEvent.getSource();
         if (!(source instanceof Button)) {
             return;
@@ -77,13 +83,13 @@ public class MainController {
         Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
         switch (clickedButton.getId()) {
             case "addButton":
-                System.out.println("Add " + selectedPerson);
+                System.out.println("Add " + selectedPerson.getFio() + " " + selectedPerson.getPhone());
+                break;
+            case "changeButton":
+                System.out.println("Change " + selectedPerson.getFio() + selectedPerson.getPhone());
                 break;
             case "delButton":
-                System.out.println("Del " + selectedPerson);
-                break;
-            case "searchButton":
-                System.out.println("Поиск " + selectedPerson);
+                System.out.println("Delete " + selectedPerson.getFio() + selectedPerson.getPhone());
                 break;
 
 
