@@ -28,15 +28,24 @@ public class EditDialogController {
     public void actionClose (ActionEvent actionEvent){
         Node source = (Node)actionEvent.getSource();
         Stage stage = (Stage)source.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
+    public Person getPerson(){return person;}
+
     public void setPerson(Person person){
+        if(person == null){
+            return;
+        }
         this.person = person;
         txtFIO.setText(person.getFio());
         txtPhone.setText(person.getPhone());
+    }
 
-
+    public void actionSave(ActionEvent actionEvent){
+        person.setPhone(txtPhone.getText());
+        person.setFio(txtFIO.getText());
+        actionClose(actionEvent);
     }
 
 

@@ -20,32 +20,30 @@ public class Person {
     }
 
     public void setPhone(String phone) {
-
         this.phone.set(phone);
     }
 
     public String getFio() {
-
-        return fio.getName();
+        return fio.get();
     }
 
     public void setFio(String fio) {
         this.fio.set(fio);
     }
 
-    public SimpleStringProperty fioProperty(){
+    public SimpleStringProperty fioProperty() {
         return fio;
     }
 
-    public SimpleStringProperty phoneProperty(){
+    public SimpleStringProperty phoneProperty() {
         return phone;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Person {" +
-                "fio= " + fio + '\''+
-                ", phone='"+ phone + '\''+
+                "fio= " + fio + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

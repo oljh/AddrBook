@@ -39,7 +39,7 @@ public class CollectionAddressBook implements AddressBook {
 
 
     public void fillTestData(){
-         personList.add(new Person("Иван", "78456487543"));
+        personList.add(new Person("Иван", "78456487543"));
         personList.add(new Person("Петр", "7845345587543"));
         personList.add(new Person("Света", "72343"));
         personList.add(new Person("Катя", "782345543"));
