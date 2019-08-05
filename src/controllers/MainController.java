@@ -150,11 +150,11 @@ public class MainController {
             editDialogStage.initModality(Modality.WINDOW_MODAL);
             editDialogStage.initOwner(mainStage);
 
-            editDialogStage.showAndWait();
+
 
             // editDialogStage.show();
         }
-
+        editDialogStage.showAndWait();
     }
 
     public void setMainStage(Stage mainStage) {
