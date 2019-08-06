@@ -1,6 +1,7 @@
 package controllers;
 
 import interfaces.impls.CollectionAddressBook;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,8 +18,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import objects.Person;
+import org.controlsfx.control.textfield.CustomTextField;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -45,7 +49,7 @@ public class MainController implements Initializable {
     private TableView tableAddressBook;
 
     @FXML
-    private TextField txtSearch;
+    private CustomTextField txtSearch;
 
     @FXML
     private TableColumn<Person, String> columnFIO;
@@ -65,7 +69,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    this.resourceBundle = resources;
+        this.resourceBundle = resources;
         columnFIO.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
         initListeners();
@@ -73,7 +77,19 @@ public class MainController implements Initializable {
         initLoader();
     }
 
-
+    private void setupClearButtonField(CustomTextField customTextField) {
+        try{
+            Method m = TextField.class.getDeclaredMethod("setupClearButtonField",TextField.class, ObjectProperty.class);
+            m.setAccessible(true);
+            m.invoke(null, customTextField, customTextField.rightProperty());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void fillData() {
         addressBookImpl.fillTestData();
@@ -114,7 +130,7 @@ public class MainController implements Initializable {
     }
 
     public void updateCountLable() {
-        labelCount.setText(resourceBundle.getString("count") +": "+ addressBookImpl.getPersonList().size());
+        labelCount.setText(resourceBundle.getString("count") + ": " + addressBookImpl.getPersonList().size());
     }
 
     public void actionButtonPressed(ActionEvent actionEvent) {
@@ -158,7 +174,6 @@ public class MainController implements Initializable {
             editDialogStage.setScene(new Scene(fxmlEdit));
             editDialogStage.initModality(Modality.WINDOW_MODAL);
             editDialogStage.initOwner(mainStage);
-
 
 
             // editDialogStage.show();
