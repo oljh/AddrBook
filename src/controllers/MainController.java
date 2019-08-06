@@ -2,7 +2,9 @@ package controllers;
 
 import interfaces.impls.CollectionAddressBook;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import objects.Person;
 import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -65,6 +68,8 @@ public class MainController implements Initializable {
     private EditDialogController editDialogController;
     private Stage editDialogStage;
 
+    private ObservableList<Person> backUpList;
+
     private ResourceBundle resourceBundle;
 
     @Override
@@ -72,6 +77,7 @@ public class MainController implements Initializable {
         this.resourceBundle = resources;
         columnFIO.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+        setupClearButtonField(txtSearch);
         initListeners();
         fillData();
         initLoader();
@@ -79,7 +85,7 @@ public class MainController implements Initializable {
 
     private void setupClearButtonField(CustomTextField customTextField) {
         try{
-            Method m = TextField.class.getDeclaredMethod("setupClearButtonField",TextField.class, ObjectProperty.class);
+            Method m = TextFields.class.getDeclaredMethod("setupClearButtonField",TextField.class, ObjectProperty.class);
             m.setAccessible(true);
             m.invoke(null, customTextField, customTextField.rightProperty());
         } catch (NoSuchMethodException e) {
@@ -93,6 +99,8 @@ public class MainController implements Initializable {
 
     private void fillData() {
         addressBookImpl.fillTestData();
+        backUpList = FXCollections.observableArrayList();
+        backUpList.addAll(addressBookImpl.getPersonList());
         tableAddressBook.setItems(addressBookImpl.getPersonList());
     }
 
@@ -155,6 +163,9 @@ public class MainController implements Initializable {
             case "btnDel":
                 addressBookImpl.delete((Person) tableAddressBook.getSelectionModel().getSelectedItem());
                 break;
+            case "btnSrch":
+                actionSearch(actionEvent);
+                break;
 
 
         }
@@ -185,5 +196,15 @@ public class MainController implements Initializable {
         this.mainStage = mainStage;
     }
 
+        public void actionSearch(ActionEvent actionEvent){
+        addressBookImpl.getPersonList().clear();
+
+        for(Person person: backUpList){
+            if(person.getFio().toLowerCase().contains(txtSearch.getText().toLowerCase())||
+            person.getPhone().toLowerCase().contains(txtSearch.getText().toLowerCase())){
+                addressBookImpl.getPersonList().add(person);
+            }
+        }
+        }
 
 }
