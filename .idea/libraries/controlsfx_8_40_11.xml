@@ -2,6 +2,7 @@
   <library name="controlsfx-8.40.11">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/lib/controlsfx-8.40.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/openjfx-dialogs-1.0.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
